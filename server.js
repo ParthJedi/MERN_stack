@@ -6,6 +6,9 @@ const expressApp = express();
 // connext db
 dbConnect();
 
+// init middleware
+expressApp.use(express.json({ extended: true }));
+
 expressApp.get('/', (req, res) => {
 	res.send('Express Server Running');
 });
