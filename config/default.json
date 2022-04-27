@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://parth:ZUPa0V7EkpzliFzS@warehouse-portal.96bxd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://parth:ZUPa0V7EkpzliFzS@warehouse-portal.96bxd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "jwtSecret": "test123"
 }
