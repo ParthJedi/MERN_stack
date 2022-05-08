@@ -6,40 +6,40 @@ const profileSchema = new mongoose.Schema({
 		ref: 'user',
 	},
 	company: {
-		type: string,
+		type: String,
 	},
 	website: {
-		type: string,
+		type: String,
 	},
 	location: {
-		type: string,
+		type: String,
 	},
 	status: {
-		type: string,
+		type: String,
 		required: true,
 	},
 	skills: {
-		type: [string],
+		type: [String],
 		required: true,
 	},
 	bio: {
-		type: string,
+		type: String,
 	},
 	githubUsername: {
-		type: string,
+		type: String,
 	},
 	experience: [
 		{
 			title: {
-				type: string,
+				type: String,
 				required: true,
 			},
 			company: {
-				type: string,
+				type: String,
 				required: true,
 			},
 			location: {
-				type: string,
+				type: String,
 			},
 			from: {
 				type: Date,
@@ -53,22 +53,22 @@ const profileSchema = new mongoose.Schema({
 				default: false,
 			},
 			description: {
-				type: string,
+				type: String,
 			},
 		},
 	],
 	education: [
 		{
 			school: {
-				type: string,
+				type: String,
 				required: true,
 			},
 			degree: {
-				type: string,
+				type: String,
 				required: true,
 			},
 			fieldOfStudy: {
-				type: string,
+				type: String,
 				required: true,
 			},
 			from: {
@@ -82,25 +82,25 @@ const profileSchema = new mongoose.Schema({
 				type: Boolean,
 			},
 			description: {
-				type: string,
+				type: String,
 			},
 		},
 	],
 	social: {
 		youtube: {
-			type: string,
+			type: String,
 		},
 		twitter: {
-			type: string,
+			type: String,
 		},
 		facebook: {
-			type: string,
+			type: String,
 		},
 		linkedin: {
-			type: string,
+			type: String,
 		},
 		instagram: {
-			type: string,
+			type: String,
 		},
 	},
 	Date: {
