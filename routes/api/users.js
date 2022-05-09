@@ -7,22 +7,24 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const config = require('config');
 
-//POST - api/users
+//@route		POST  api/user
+//@desc			register a user
+//@access		public
 router.post(
 	'/',
 	[
 		check('name', 'Name is required').not().isEmpty(),
 		check('email', 'Please enter a valid email').isEmail(),
 		check('password', 'Password shoudl be 8 characters or more').isLength({
-			min: 8,
-		}),
+			min: 8
+		})
 	],
 	async (req, res) => {
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
 				return res.status(400).json({
-					errors: errors.array(),
+					errors: errors.array()
 				});
 			}
 			console.log(req.body);
@@ -36,14 +38,14 @@ router.post(
 			const avatar = gravatar.url(email, {
 				s: '200',
 				r: 'pg',
-				d: 'mm',
+				d: 'mm'
 			});
 
 			user = new User({
 				name,
 				email,
 				avatar,
-				password,
+				password
 			});
 
 			const salt = await bcrypt.genSalt(10);
@@ -53,8 +55,8 @@ router.post(
 
 			const payload = {
 				user: {
-					id: user.id,
-				},
+					id: user.id
+				}
 			};
 
 			jwt.sign(
