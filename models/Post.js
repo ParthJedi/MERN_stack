@@ -32,6 +32,9 @@ const postSchema = new mongoose.Schema({
 			name: {
 				type: String
 			},
+			text: {
+				type: String
+			},
 			avatar: {
 				type: String
 			},
