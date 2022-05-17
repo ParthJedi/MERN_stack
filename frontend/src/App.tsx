@@ -17,10 +17,10 @@ const App = () => {
 				<Router>
 					<Navbar />
 					<Routes>
-						<Route path='/' element={<Landing />} />
+						<Route path='/' element={<Landing />} />{' '}
 					</Routes>
-					<Alert />
 					<section className='container'>
+						<Alert />
 						<Routes>
 							<Route path='/register' element={<Register />} />
 							<Route path='/login' element={<Login />} />
