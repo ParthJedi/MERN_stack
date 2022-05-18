@@ -2,9 +2,10 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Register = (props: any) => {
+const Register = ({ setAlert, register }: any) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -20,9 +21,9 @@ const Register = (props: any) => {
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (password !== password2) {
-			props.setAlert('Passwords do not match', 'danger', 3000);
+			setAlert('Passwords do not match', 'danger', 3000);
 		} else {
-			console.log('SUCCESS!');
+			register({ name, email, password });
 		}
 	};
 
@@ -40,7 +41,6 @@ const Register = (props: any) => {
 						name='name'
 						value={name}
 						onChange={(e) => onchange(e)}
-						required
 					/>
 				</div>
 				<div className='form-group'>
@@ -63,7 +63,7 @@ const Register = (props: any) => {
 						name='password'
 						value={password}
 						onChange={(e) => onchange(e)}
-						minLength={6}
+						minLength={8}
 					/>
 				</div>
 				<div className='form-group'>
@@ -73,7 +73,7 @@ const Register = (props: any) => {
 						name='password2'
 						value={password2}
 						onChange={(e) => onchange(e)}
-						minLength={6}
+						minLength={8}
 					/>
 				</div>
 				<input type='submit' className='btn btn-primary' value='Register' />
@@ -86,7 +86,8 @@ const Register = (props: any) => {
 };
 
 Register.propTypes = {
-	setAlert: PropTypes.func.isRequired
+	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired
 };
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
