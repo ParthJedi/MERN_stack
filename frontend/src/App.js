@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/profile-forms/CreateProfile';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
@@ -39,6 +40,14 @@ const App = () => {
 								element={
 									<PrivateRoute>
 										<Dashboard />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path='/create-profile'
+								element={
+									<PrivateRoute>
+										<CreateProfile />
 									</PrivateRoute>
 								}
 							/>
