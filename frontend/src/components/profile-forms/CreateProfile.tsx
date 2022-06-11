@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createOrUpdateProfile } from '../../actions/profile';
 
-const CreateProfile = (props: any) => {
+const CreateProfile = ({ createOrUpdateProfile, history }: any) => {
 	const [formData, setFormData] = useState({
 		company: '',
 		website: '',
@@ -19,6 +21,7 @@ const CreateProfile = (props: any) => {
 	});
 
 	const [displaySocialInputs, setDisplaySocialInputs] = useState(false);
+	const navigate = useNavigate();
 
 	const {
 		company,
@@ -42,8 +45,9 @@ const CreateProfile = (props: any) => {
 		});
 	};
 
-	const onSubmit = (data: any): any => {
-		console.log('FormSubmittedData: ', JSON.stringify(data));
+	const onSubmit = (e: any): any => {
+		e.preventDefault();
+		createOrUpdateProfile(formData, navigate('/dashboard'));
 	};
 	return (
 		<Fragment>
@@ -53,7 +57,7 @@ const CreateProfile = (props: any) => {
 				profile stand out
 			</p>
 			<small>* required</small>
-			<form className='form'>
+			<form className='form' onSubmit={(e) => onSubmit(e)}>
 				<div className='form-group'>
 					<select name='status' value={status} onChange={(e) => onChange(e)}>
 						<option value='0'>* Select Professional Status</option>
@@ -209,11 +213,7 @@ const CreateProfile = (props: any) => {
 					</>
 				)}
 
-				<input
-					type='submit'
-					className='btn btn-primary my-1'
-					onSubmit={() => onSubmit(formData)}
-				/>
+				<input type='submit' className='btn btn-primary my-1' />
 				<a className='btn btn-light my-1' href='dashboard.html'>
 					Go Back
 				</a>
@@ -222,6 +222,8 @@ const CreateProfile = (props: any) => {
 	);
 };
 
-CreateProfile.propTypes = {};
+CreateProfile.propTypes = {
+	createOrUpdateProfile: PropTypes.func.isRequired
+};
 
-export default CreateProfile;
+export default connect(null, { createOrUpdateProfile })(CreateProfile);
