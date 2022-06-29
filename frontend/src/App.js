@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
+import EditProfile from './components/profile-forms/EditProfile';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
@@ -48,6 +49,14 @@ const App = () => {
 								element={
 									<PrivateRoute>
 										<CreateProfile />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path='/edit-profile'
+								element={
+									<PrivateRoute>
+										<EditProfile />
 									</PrivateRoute>
 								}
 							/>

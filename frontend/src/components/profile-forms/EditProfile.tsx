@@ -1,10 +1,18 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createOrUpdateProfile } from '../../actions/profile';
+import {
+	createOrUpdateProfile,
+	getCurrentProfile
+} from '../../actions/profile';
 
-const CreateProfile = ({ createOrUpdateProfile, history }: any) => {
+const EditProfile = ({
+	profile: { profile, loading },
+	createOrUpdateProfile,
+	getCurrentProfile,
+	history
+}: any) => {
 	const [formData, setFormData] = useState({
 		company: '',
 		website: '',
@@ -21,7 +29,28 @@ const CreateProfile = ({ createOrUpdateProfile, history }: any) => {
 	});
 
 	const [displaySocialInputs, setDisplaySocialInputs] = useState(false);
+
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		getCurrentProfile();
+
+		setFormData({
+			company: loading || !profile.company ? '' : profile.company,
+			website: loading || !profile.website ? '' : profile.website,
+			location: loading || !profile.location ? '' : profile.location,
+			status: loading || !profile.status ? '' : profile.status,
+			skills: loading || !profile.skills ? '' : profile.skills,
+			githubUsername:
+				loading || !profile.githubUsername ? '' : profile.githubUsername,
+			bio: loading || !profile.bio ? '' : profile.bio,
+			youtube: loading || !profile.social ? '' : profile.social.youtube,
+			facebook: loading || !profile.social ? '' : profile.social.facebook,
+			twitter: loading || !profile.social ? '' : profile.social.twitter,
+			instagram: loading || !profile.social ? '' : profile.social.instagram,
+			linkedin: loading || !profile.social ? '' : profile.social.linkedin
+		});
+	}, [loading]);
 
 	const {
 		company,
@@ -47,7 +76,7 @@ const CreateProfile = ({ createOrUpdateProfile, history }: any) => {
 
 	const onSubmit = (e: any): any => {
 		e.preventDefault();
-		createOrUpdateProfile(formData, navigate('/dashboard'));
+		createOrUpdateProfile(formData, navigate('/dashboard'), true);
 	};
 	return (
 		<Fragment>
@@ -222,8 +251,19 @@ const CreateProfile = ({ createOrUpdateProfile, history }: any) => {
 	);
 };
 
-CreateProfile.propTypes = {
-	createOrUpdateProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+	createOrUpdateProfile: PropTypes.func.isRequired,
+	getCurrentProfile: PropTypes.func.isRequired,
+	profile: PropTypes.object.isRequired
 };
 
-export default connect(null, { createOrUpdateProfile })(CreateProfile);
+const mapStateToProps = (state: any) => {
+	return {
+		profile: state.profile
+	};
+};
+
+export default connect(mapStateToProps, {
+	createOrUpdateProfile,
+	getCurrentProfile
+})(EditProfile);
